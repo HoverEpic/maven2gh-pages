@@ -2,8 +2,4 @@ language: java
 jdk:
   - oraclejdk8
 
-script: 'mvn package deploy site'
-env:
-  global:
-  - COMMIT_AUTHOR_NAME: "Travis CI"
-  - COMMIT_AUTHOR_EMAIL: "pcsrvadm@gmail.com"
+script: 'mvn site'

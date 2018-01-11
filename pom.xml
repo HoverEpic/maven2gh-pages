@@ -6,10 +6,54 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
-    <name>ExampleProject</name>
+    <url>https://hoverepic.github.io/maven2gh-pages/</url>
+    <name>maven2gh-pages</name>
+    
+    <scm>
+        <url>https://github.com/HoverEpic/maven2gh-pages</url>
+        <connection>scm:git:git@github.com:HoverEpic/maven2gh-pages.git</connection>
+        <developerConnection>scm:git:git@github.com:HoverEpic/maven2gh-pages.git</developerConnection>
+    </scm>
+    
+    <!-- Deploy to maven repository -->
+    <distributionManagement>
+        <repository>
+            <id>maven-repo</id>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
     
     <build>
         <plugins>
+    
+            <!-- Build sources jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+    
+            <!-- Build javadoc jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Deploy to maven repository -->
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -18,22 +62,28 @@
                     <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
                 </configuration>
             </plugin>
+    
             <!-- Add to maven repository -->
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
                 <version>0.12</version>
                 <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
+                    <!--  -->
+                    <message>Updating to ${project.artifactId}-${project.version}</message>
+                    <branch>refs/heads/gh-pages</branch>
                     <noJekyll>true</noJekyll>
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                    <branch>refs/heads/master</branch>
+                    
+                    <!-- Use merge or override the content -->
                     <merge>true</merge>
                     <includes>
                         <include>**/*</include>
                     </includes>
-                    <repositoryName>MavenRepository</repositoryName>
-                    <repositoryOwner>Epic</repositoryOwner>
+                    
+                    <!-- repository identification -->
+                    <server>github</server>
+                    <oauth2Token>${env.GITHUB_OAUTH_TOKEN}</oauth2Token>
                 </configuration>
                 <executions>
                     <execution>
@@ -51,8 +101,5 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- Github Site config -->
-        <github.global.server>github</github.global.server>
-        <github.global.oauth2Token>${env.GITHUB_TOKEN}</github.global.oauth2Token>
     </properties>
 </project>
