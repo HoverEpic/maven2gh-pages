@@ -7,6 +7,8 @@ Simple process of a maven project compiled by travis and stored on Github pages
 4 - configure pom smc section
 5 - make sure your name on github is filled, and email public
 
+Output : https://hoverepic.github.io/maven2gh-pages/project-summary.html
+
 Thanks to :
  - https://blog.lanyonm.org/articles/2015/12/19/publish-maven-site-github-pages-travis-ci.html
  - https://github.com/JRakNet/JRakNet
