@@ -4,8 +4,8 @@
   <artifactId>exampleproject</artifactId>
   <versioning>
     <versions>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.1-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20180112104524</lastUpdated>
+    <lastUpdated>20180112105114</lastUpdated>
   </versioning>
 </metadata>
